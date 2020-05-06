@@ -48,6 +48,7 @@
   import { ValidationProvider, ValidationObserver, extend, configure } from 'vee-validate'
   import { required, email, min } from 'vee-validate/dist/rules'
   import Btn from '@components/ui/btn/Btn.vue'
+  import formMixin from '@client/mixins/form'
 
   extend('required', {
     ...required,
@@ -74,12 +75,12 @@
       ValidationObserver,
       Btn
     },
+    mixins: [formMixin],
     data: () => ({
       user: {
         email: null,
         password: null
-      },
-      pending: false
+      }
     }),
     computed: {
       ...mapGetters({
@@ -106,9 +107,6 @@
         }
         this.togglePending()
 
-      },
-      togglePending() {
-        this.pending = !this.pending
       }
     },
     created() {
