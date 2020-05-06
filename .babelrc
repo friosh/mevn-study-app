@@ -1,0 +1,23 @@
+{
+  "presets": [
+    "@babel/preset-env"
+  ],
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./"],
+      "alias": {
+        "@": "./",
+        "@client": "./client",
+        "@components": "./client/components",
+        "@config": "./server/config",
+        "@controllers": "./server/controllers",
+        "@models": "./server/models",
+        "@pages": "./client/pages",
+        "@routes": "./server/routes",
+        "@store": "./client/store",
+        "@validators": "./server/validators"
+      }
+    }],
+    "transform-regenerator"
+  ]
+}
