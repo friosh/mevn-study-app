@@ -102,8 +102,7 @@
     },
     methods: {
       ...mapActions([
-          'postRegister',
-          'initial'
+          'postRegister'
       ]),
       async onSubmit() {
         this.togglePending()
@@ -122,9 +121,6 @@
 
       }
     },
-    created() {
-      this.initial()
-    }
   };
 </script>
 

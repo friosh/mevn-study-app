@@ -90,8 +90,7 @@
     },
     methods: {
       ...mapActions([
-        'login',
-        'initial'
+        'login'
       ]),
       async onSubmit() {
         this.togglePending()
@@ -109,9 +108,6 @@
 
       }
     },
-    created() {
-      this.initial()
-    }
   };
 </script>
 

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import api from '@client/utils/axios'
+import utils from '../utils/store.utils'
 
 Vue.use(Vuex)
 
@@ -28,47 +29,17 @@ export default new Vuex.Store({
     async postRegister({ commit }, data) {
       try {
         const auth = await api.post('auth/register', data)
-        console.log(auth)
-        localStorage.setItem('auth', JSON.stringify(auth.data))
-        commit('setAuth', auth.data)
-
-        return auth
+        return utils.setAuth(auth, commit)
       } catch (error) {
-        const output = {
-          error: true,
-          data: [],
-        }
-        Object.keys(error.response.data).forEach((field) => {
-          output.data.push({
-            field,
-            msg: error.response.data[field],
-          })
-        })
-        return output
+        return utils.getError(error)
       }
-    },
-    async init({ commit }) {
-      //
     },
     async login({ commit }, data) {
       try {
         const auth = await api.post('auth/login', data)
-        localStorage.setItem('auth', JSON.stringify(auth.data))
-        commit('setAuth', auth.data)
-
-        return auth
+        return utils.setAuth(auth, commit)
       } catch (error) {
-        const output = {
-          error: true,
-          data: [],
-        }
-        Object.keys(error.response.data).forEach((field) => {
-          output.data.push({
-            field,
-            msg: error.response.data[field],
-          })
-        })
-        return output
+        return utils.getError(error)
       }
     },
   },
