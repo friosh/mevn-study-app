@@ -9,25 +9,25 @@ const login = async (req, res) => {
         const token = user.generateToken()
         return res.json({
           user,
-          token
+          token,
         })
       }
     }
     return res.status(400).json({
-      email: "This credentials don't match our records"
+      email: "This credentials don't match our records",
     })
   } catch (e) {
-    console.log(e);
+    console.log(e)
   }
 }
 
 const register = async (req, res) => {
   try {
-    const {name, email, password} = req.body
+    const { name, email, password } = req.body
     const user = await User.create({
       name,
       email,
-      password
+      password,
     })
 
     const token = user.generateToken()
@@ -38,9 +38,7 @@ const register = async (req, res) => {
   }
 }
 
-
-
 export default {
   login,
-  register
+  register,
 }

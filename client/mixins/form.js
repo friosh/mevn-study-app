@@ -1,10 +1,10 @@
 export default {
   data: () => ({
-    pending: false
+    pending: false,
   }),
   methods: {
     togglePending() {
       this.pending = !this.pending
-    }
-  }
+    },
+  },
 }

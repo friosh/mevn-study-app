@@ -10,15 +10,15 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: Home
+      component: Home,
     },
     {
       path: '/auth/login',
-      component: Login
+      component: Login,
     },
     {
       path: '/auth/register',
-      component: Registration
+      component: Registration,
     },
-  ]
+  ],
 })

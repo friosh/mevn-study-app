@@ -48,11 +48,11 @@ module.exports = {
     secure: false,
     auth: {
       user: process.env.MAIL_USERNAME,
-      pass: process.env.MAIL_PASSWORD
+      pass: process.env.MAIL_PASSWORD,
     },
     maxConnections: 5,
     maxMessages: 100,
-    rateLimit: 10
+    rateLimit: 10,
   },
 
   /*
@@ -75,7 +75,7 @@ module.exports = {
     driver: 'sparkpost',
     // endpoint: 'https://api.eu.sparkpost.com/api/v1',
     apiKey: process.env.SPARKPOST_API_KEY,
-    extras: {}
+    extras: {},
   },
 
   /*
@@ -99,7 +99,7 @@ module.exports = {
     driver: 'mailgun',
     domain: process.env.MAILGUN_DOMAIN,
     apiKey: process.env.MAILGUN_API_KEY,
-    extras: {}
+    extras: {},
   },
 
   /*
@@ -114,6 +114,6 @@ module.exports = {
   |
   */
   ethereal: {
-    driver: 'ethereal'
-  }
+    driver: 'ethereal',
+  },
 }

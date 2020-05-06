@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon --exec babel-node server",
-    "prettier": "prettier --write './**/*.js",
+    "prettier": "prettier --write './**/*.js'",
     "client": "webpack --mode=production",
     "server": "babel server/ --out-dir dist/ --copy-files",
     "build": "yarn client && yarn server"

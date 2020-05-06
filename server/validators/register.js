@@ -4,16 +4,15 @@ import User from '@models/User'
 const RegisterSchema = Yup.object().shape({
   name: Yup.string().required(),
   email: Yup.string().email().required(),
-  password: Yup.string().min(6).required()
+  password: Yup.string().min(6).required(),
 })
-
 
 export default async (req, res, next) => {
   const { name, email, password } = req.body
   try {
     await RegisterSchema.validate({ name, email, password })
     const existingUser = await User.findOne({ email })
-    console.log(existingUser);
+    console.log(existingUser)
     if (existingUser) {
       throw new Yup.ValidationError(
         'This user is already exist',
@@ -24,8 +23,7 @@ export default async (req, res, next) => {
     return next()
   } catch (error) {
     return res.status(422).json({
-      [error.path]: error.message
+      [error.path]: error.message,
     })
   }
-
 }
