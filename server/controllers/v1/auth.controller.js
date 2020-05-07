@@ -38,7 +38,21 @@ const register = async (req, res) => {
   }
 }
 
+const restore = async (req, res) => {
+  try {
+    const { email } = req.body
+    const user = await User.findOne({ email })
+    await user.restore()
+    return res.json({
+      message: 'Password reset link sent'
+    })
+  } catch(e) {
+    console.log(e);
+  }
+}
+
 export default {
   login,
   register,
+  restore
 }

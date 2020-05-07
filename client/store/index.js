@@ -45,8 +45,12 @@ export default new Vuex.Store({
       commit('setAuth', null)
       localStorage.removeItem('auth')
     },
-    async restorePassword() {
-
+    async restorePassword(context, data) {
+      try {
+        return await api.post('auth/restore', data)
+      } catch (e) {
+        return utils.getError(e)
+      }
     }
   },
   mutations: {

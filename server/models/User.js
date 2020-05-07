@@ -4,6 +4,8 @@ import randomstring from 'randomstring'
 import jwt from 'jsonwebtoken'
 import Mail from '@fullstackjs/mail'
 import config from '@config'
+import passwordReset from '@models/PasswordReset'
+import PasswordReset from './PasswordReset';
 
 const UserSchema = new mongoose.Schema({
   name: String,
@@ -38,6 +40,24 @@ UserSchema.methods.comparePassword = function (plainPass) {
 
 UserSchema.methods.generateToken = function () {
   return jwt.sign({ id: this._id }, config.jwtSecret)
+}
+
+UserSchema.methods.restore = async function() {
+  const token = randomstring.generate(72)
+  await PasswordReset.create({
+    token,
+    email: this.email,
+    createdAt: new Date
+  })
+
+  await new Mail('forgot-password')
+      .to(this.email, this.name)
+      .subject('Password reset')
+      .data({
+        url: `${config.url}/auth/password/reset/${token}`,
+        name: this.name
+      })
+      .send()
 }
 
 export default mongoose.model('User', UserSchema)
