@@ -12,7 +12,6 @@ export default async (req, res, next) => {
   try {
     await RegisterSchema.validate({ name, email, password })
     const existingUser = await User.findOne({ email })
-    console.log(existingUser)
     if (existingUser) {
       throw new Yup.ValidationError(
         'This user is already exist',

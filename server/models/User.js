@@ -42,7 +42,7 @@ UserSchema.methods.generateToken = function () {
   return jwt.sign({ id: this._id }, config.jwtSecret)
 }
 
-UserSchema.methods.restore = async function () {
+UserSchema.methods.restorePassword = async function () {
   const token = randomstring.generate(72)
   await PasswordReset.create({
     token,
