@@ -13,11 +13,10 @@
         </div>
         <div v-else>
           <router-link class="text-gray-700 w-32" to="/auth/reset/">Reset Password</router-link>
-          <router-link
+          <button
             class="w-32 ml-3"
-            to="#"
-            @click.prevent="logout"
-          >Logout</router-link>
+            @click="logout"
+          >Logout</button>
         </div>
       </div>
       <router-view />

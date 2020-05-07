@@ -1,4 +1,6 @@
 import User from '@models/User'
+import Bcrypt from 'bcryptjs'
+import PasswordReset from '../../models/PasswordReset';
 
 const login = async (req, res) => {
   try {
@@ -40,9 +42,29 @@ const register = async (req, res) => {
 
 const restore = async (req, res) => {
   try {
-    await req.user.generateToken()
+    await req.user.restorePassword()
     return res.json({
       message: 'Password reset link sent',
+    })
+  } catch (e) {
+    return res.status(400).json({
+      message: 'Some error',
+    })
+  }
+}
+
+const reset = async (req, res) => {
+  try {
+    const { user } = req
+    await User.findOneAndUpdate(
+        { email: user.email},
+        {password: Bcrypt.hashSync(req.body.password)}
+        )
+    await PasswordReset.findOneAndDelete(
+        {email: user.email }
+    )
+    return res.json({
+      message: 'Password reset successfully',
     })
   } catch (e) {
     return res.status(400).json({
@@ -54,5 +76,6 @@ const restore = async (req, res) => {
 export default {
   login,
   register,
+  reset,
   restore,
 }

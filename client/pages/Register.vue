@@ -1,7 +1,7 @@
 <template>
   <div class="container my-16 w-full mx-auto">
     <validation-observer
-      ref="reg"
+      ref="form"
       v-slot="{ handleSubmit }"
     >
       <form @submit.prevent="handleSubmit(() => onSubmit(postRegister, user))">

@@ -4,7 +4,10 @@
       ref="reg"
       v-slot="{ handleSubmit }"
     >
-      <form @submit.prevent="handleSubmit(() => onSubmit(login, user))">
+      <form
+        ref="form"
+        @submit.prevent="handleSubmit(() => onSubmit(login, user, '/'))"
+      >
         <div class="max-w-xs mx-auto">
           <h2 class="text-center text-lg text-orange-700">Sign in</h2>
           <div class="w-full p-6 bg-white shadow mt-5 rounded-sm">

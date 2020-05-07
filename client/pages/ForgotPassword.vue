@@ -4,7 +4,10 @@
       ref="reg"
       v-slot="{ handleSubmit }"
     >
-      <form @submit.prevent="handleSubmit(() => onSubmit(restorePassword, user, '/'))">
+      <form
+        ref="form"
+        @submit.prevent="handleSubmit(() => onSubmit(restorePassword, user, '/'))"
+      >
         <div class="max-w-xs mx-auto">
           <h2 class="text-center text-lg text-orange-700">Restore password</h2>
           <div class="w-full p-6 bg-white shadow mt-5 rounded-sm">

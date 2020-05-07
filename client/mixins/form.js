@@ -45,10 +45,11 @@ export default {
     },
     async onSubmit(method, formData, to = null) {
       this.togglePending()
+      console.log(res);
       const res = await method(formData)
       if (res.error) {
         const { field, msg } = res.data[0]
-        this.$refs.reg.setErrors({
+        this.$refs.form.setErrors({
           [field]: [msg],
         })
       } else {
