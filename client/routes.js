@@ -23,7 +23,7 @@ export default new Router({
     },
     {
       path: '/auth/restore',
-      component: ForgotPassword
-    }
+      component: ForgotPassword,
+    },
   ],
 })

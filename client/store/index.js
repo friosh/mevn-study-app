@@ -14,7 +14,7 @@ export default new Vuex.Store({
   getters: {
     user: (state) => state.user,
     token: (state) => state.token,
-    error: (state) => state.error
+    error: (state) => state.error,
   },
   actions: {
     initialize({ commit }) {
@@ -41,7 +41,7 @@ export default new Vuex.Store({
         return utils.getError(error)
       }
     },
-    async logout({commit}) {
+    async logout({ commit }) {
       commit('setAuth', null)
       localStorage.removeItem('auth')
     },
@@ -51,7 +51,7 @@ export default new Vuex.Store({
       } catch (e) {
         return utils.getError(e)
       }
-    }
+    },
   },
   mutations: {
     setPeople(state, people) {

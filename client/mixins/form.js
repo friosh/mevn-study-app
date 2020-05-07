@@ -1,23 +1,28 @@
-import { ValidationProvider, ValidationObserver, extend, configure } from 'vee-validate'
+import {
+  ValidationProvider,
+  ValidationObserver,
+  extend,
+  configure,
+} from 'vee-validate'
 import { required, email, min } from 'vee-validate/dist/rules'
-import AppInput from '@components/ui/input/AppInput.vue';
+import AppInput from '@components/ui/input/AppInput.vue'
 import Btn from '@components/ui/btn/Btn.vue'
 
 extend('required', {
   ...required,
-  message: 'The {_field_} is required'
+  message: 'The {_field_} is required',
 })
 extend('email', email)
 extend('min', {
   ...min,
   params: ['length'],
-  message: `The {_field_} must be {length} symbols`
+  message: `The {_field_} must be {length} symbols`,
 })
 configure({
   classes: {
     valid: 'is-valid',
-    invalid: 'is-invalid'
-  }
+    invalid: 'is-invalid',
+  },
 })
 
 export default {
@@ -38,14 +43,14 @@ export default {
       this.togglePending()
       const res = await method(formData)
       if (res.error) {
-        const {field, msg} = res.data[0]
+        const { field, msg } = res.data[0]
         this.$refs.reg.setErrors({
-          [field]: [msg]
+          [field]: [msg],
         })
       } else {
         to ? this.$router.push(to) : null
       }
       this.togglePending()
-    }
+    },
   },
 }

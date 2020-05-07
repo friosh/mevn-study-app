@@ -19,5 +19,5 @@ const getError = (error) => {
 }
 export default {
   setAuth,
-  getError
+  getError,
 }
