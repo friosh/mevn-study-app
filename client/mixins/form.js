@@ -4,7 +4,7 @@ import {
   extend,
   configure,
 } from 'vee-validate'
-import { required, email, min } from 'vee-validate/dist/rules'
+import { required, email, min, confirmed } from 'vee-validate/dist/rules'
 import AppInput from '@components/ui/input/AppInput.vue'
 import Btn from '@components/ui/btn/Btn.vue'
 
@@ -13,6 +13,10 @@ extend('required', {
   message: 'The {_field_} is required',
 })
 extend('email', email)
+extend('confirmed', {
+  ...confirmed,
+  message: 'Repeated password doesnt match with new password'
+})
 extend('min', {
   ...min,
   params: ['length'],
