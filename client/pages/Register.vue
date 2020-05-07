@@ -4,7 +4,7 @@
       ref="reg"
       v-slot="{ handleSubmit }"
     >
-      <form @submit.prevent="handleSubmit(onSubmit)">
+      <form @submit.prevent="handleSubmit(() => onSubmit(postRegister, user))">
         <div class="max-w-xs mx-auto">
           <h2 class="text-center text-lg text-orange-700">Register</h2>
           <div class="w-full p-6 bg-white shadow mt-5 rounded-sm">
@@ -54,38 +54,12 @@
 </template>
 
 <script>
-  import AppInput from '@components/ui/input/AppInput.vue';
-  import { mapActions, mapGetters } from 'vuex';
-  import { ValidationProvider, ValidationObserver, extend, configure } from 'vee-validate'
-  import { required, email, min } from 'vee-validate/dist/rules'
-  import Btn from '@components/ui/btn/Btn.vue'
   import formMixin from '@client/mixins/form'
+  import { mapActions, mapGetters } from 'vuex';
 
-  extend('required', {
-    ...required,
-    message: 'The {_field_} is required'
-  })
-  extend('email', email)
-  extend('min', {
-    ...min,
-    params: ['length'],
-    message: `The {_field_} must be {length} symbols`
-  })
-  configure({
-    classes: {
-      valid: 'is-valid',
-      invalid: 'is-invalid'
-    }
-  })
 
   export default {
     name: 'Register',
-    components: {
-      AppInput,
-      ValidationProvider,
-      ValidationObserver,
-      Btn
-    },
     mixins: [formMixin],
     data: () => ({
       user: {
@@ -104,22 +78,6 @@
       ...mapActions([
           'postRegister'
       ]),
-      async onSubmit() {
-        this.togglePending()
-        const res = await this.postRegister(this.user)
-        console.log(res);
-        if (res.error) {
-          const {field, msg} = res.data[0]
-          console.log({[field]: [msg]})
-          this.$refs.reg.setErrors({
-            [field]: [msg]
-          })
-        } else {
-          this.$router.push('/')
-        }
-        this.togglePending()
-
-      }
     },
   };
 </script>

@@ -2,7 +2,7 @@
   <button
     class="w-full mt-3 py-3 bg-green-300 focus:outline-none hover:bg-green-400 rounded-sm text-white font-bold"
     :disabled="disabled"
-    @clicl="$emit('click')"
+    @click="$emit('click')"
   >
     <loader v-if="pending" />
     <span v-else>{{ text }}</span>

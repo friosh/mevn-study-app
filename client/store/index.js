@@ -8,17 +8,16 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     error: null,
-    people: null,
     token: null,
     user: null,
   },
   getters: {
-    people: (state) => state.people,
     user: (state) => state.user,
     token: (state) => state.token,
+    error: (state) => state.error
   },
   actions: {
-    initial({ commit }) {
+    initialize({ commit }) {
       try {
         const auth = JSON.parse(localStorage.getItem('auth'))
         commit('setAuth', auth)
@@ -42,14 +41,26 @@ export default new Vuex.Store({
         return utils.getError(error)
       }
     },
+    async logout({commit}) {
+      commit('setAuth', null)
+      localStorage.removeItem('auth')
+    },
+    async restorePassword() {
+
+    }
   },
   mutations: {
     setPeople(state, people) {
       state.people = people
     },
     setAuth(state, auth) {
-      state.user = auth.user
-      state.token = auth.token
+      if (auth) {
+        state.user = auth.user
+        state.token = auth.token
+      } else {
+        state.user = null
+        state.token = null
+      }
     },
   },
 })

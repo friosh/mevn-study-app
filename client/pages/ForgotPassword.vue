@@ -4,9 +4,9 @@
       ref="reg"
       v-slot="{ handleSubmit }"
     >
-      <form @submit.prevent="handleSubmit(() => onSubmit(login, user))">
+      <form @submit.prevent="handleSubmit(() => onSubmit(restorePassword, user, '/'))">
         <div class="max-w-xs mx-auto">
-          <h2 class="text-center text-lg text-orange-700">Sign in</h2>
+          <h2 class="text-center text-lg text-orange-700">Restore password</h2>
           <div class="w-full p-6 bg-white shadow mt-5 rounded-sm">
             <validation-provider name="email" rules="required|email" v-slot="v">
               <AppInput
@@ -19,24 +19,8 @@
                 :errors="v.errors"
               />
             </validation-provider>
-            <validation-provider name="password" rules="required|min:6" v-slot="v">
-              <AppInput
-                placeholder="Enter your password"
-                type="password"
-                name="password"
-                v-model="user.password"
-                :value="user.password"
-                :class="v.classes"
-                :errors="v.errors"
-              />
-            </validation-provider>
-            <div class="-mt-4 mb-4">
-              <router-link to="/auth/restore" class="no-underline text-xs text-orange-500">
-                Forgot password?
-              </router-link>
-            </div>
             <btn
-              text="Sign in"
+              text="Send password"
               :pending="pending"
               :disabled="pending"
             />
@@ -53,23 +37,16 @@
 
 
   export default {
-    name: 'Login',
+    name: 'ForgotPassword',
     mixins: [formMixin],
     data: () => ({
       user: {
-        email: null,
-        password: null
-      }
+        email: null
+      },
     }),
-    computed: {
-      ...mapGetters({
-        userStore: 'user',
-        tokenStore: 'token'
-      })
-    },
     methods: {
       ...mapActions([
-        'login'
+        'restorePassword'
       ]),
     },
   };
