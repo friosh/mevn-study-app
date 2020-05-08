@@ -14,12 +14,12 @@ const UserSchema = new mongoose.Schema({
   updateAt: Date,
   password: String,
   emailConfirmedAt: Date,
-  emailConfirmedCode: String,
+  emailConfirmCode: String,
 })
 
 UserSchema.pre('save', function () {
   ;(this.password = Bcrypt.hashSync(this.password)),
-    (this.emailConfirmedCode = randomstring.generate(72))
+    (this.emailConfirmCode = randomstring.generate(72))
   this.createdAt = new Date()
 })
 
@@ -29,7 +29,7 @@ UserSchema.post('save', async function () {
     .subject('Please confirm your email')
     .data({
       name: this.name,
-      url: `${config.url}/auth/confirm/${this.emailConfirmedCode}`,
+      url: `${config.url}/auth/confirm/${this.emailConfirmCode}`,
     })
     .send()
 })
