@@ -13,8 +13,11 @@
       const token = this.$route.params.token
       try {
         const user = await this.confirmEmail(token)
-        await this.auth(user)
-        this.$router.push('/')
+        const response = await this.auth(user)
+        console.log(response);
+        if (!response.error) {
+          this.$router.push('/')
+        }
       } catch (e) {
         console.log(e);
       }
