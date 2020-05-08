@@ -18,8 +18,10 @@ const login = async (req, res) => {
     return res.status(400).json({
       email: "This credentials don't match our records",
     })
-  } catch (e) {
-    console.log(e)
+  } catch (error) {
+    return res.status(400).json({
+      common: error.message,
+    })
   }
 }
 
@@ -35,8 +37,10 @@ const register = async (req, res) => {
     const token = user.generateToken()
 
     return res.status(201).json({ user, token })
-  } catch (e) {
-    console.log(e)
+  } catch (error) {
+    return res.status(422).json({
+      common: error.message,
+    })
   }
 }
 
@@ -46,9 +50,9 @@ const restore = async (req, res) => {
     return res.json({
       message: 'Password reset link sent',
     })
-  } catch (e) {
-    return res.status(400).json({
-      message: 'Some error',
+  } catch (error) {
+    return res.status(422).json({
+      common: error.message,
     })
   }
 }
@@ -64,9 +68,9 @@ const reset = async (req, res) => {
     return res.json({
       message: 'Password reset successfully',
     })
-  } catch (e) {
-    return res.status(400).json({
-      message: 'Some error',
+  } catch (error) {
+    return res.status(422).json({
+      common: error.message,
     })
   }
 }
@@ -87,7 +91,12 @@ const confirmEmail = async (req, res) => {
       token,
       message: 'Email has confirmed',
     })
-  } catch (e) {}
+  } catch (error) {
+    console.log(error)
+    return res.status(422).json({
+      common: error.message,
+    })
+  }
 }
 
 export default {
