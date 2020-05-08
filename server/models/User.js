@@ -54,7 +54,7 @@ UserSchema.methods.restorePassword = async function () {
     .to(this.email, this.name)
     .subject('Password reset')
     .data({
-      url: `${config.url}/auth//reset/${token}`,
+      url: `${config.url}/auth/reset/${token}`,
       name: this.name,
     })
     .send()
