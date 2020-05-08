@@ -18,9 +18,8 @@ export default async (req, res, next) => {
     }
 
     const timeInHours = Math.ceil(
-      ((new Date().getTime() - new Date(existingReset.createdAt).getTime()) /
-        60000) *
-        60
+      (new Date().getTime() - new Date(existingReset.createdAt).getTime()) /
+        (60000 * 24)
     )
     console.log(timeInHours)
     if (timeInHours > 12) {
