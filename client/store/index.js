@@ -58,7 +58,7 @@ export default new Vuex.Store({
       } catch (e) {
         return utils.getError(e)
       }
-    }
+    },
   },
   mutations: {
     setPeople(state, people) {

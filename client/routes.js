@@ -5,7 +5,7 @@ import Login from '@pages/Login.vue'
 import Registration from '@pages/Register.vue'
 import Home from '@pages/Home.vue'
 import ForgotPassword from '@pages/ForgotPassword.vue'
-import ResetPassword from '@pages/ResetPassword.vue';
+import ResetPassword from '@pages/ResetPassword.vue'
 
 export default new Router({
   mode: 'history',
@@ -28,7 +28,7 @@ export default new Router({
     },
     {
       path: '/auth/reset/:token',
-      component: ResetPassword
-    }
+      component: ResetPassword,
+    },
   ],
 })

@@ -14,7 +14,7 @@ async function start() {
     await Mongoose.connect(config.databaseUri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useFindAndModify: false
+      useFindAndModify: false,
     })
     app.listen(3000, () => {
       console.log('server hi started')

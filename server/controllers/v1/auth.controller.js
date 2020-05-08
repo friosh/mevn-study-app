@@ -1,6 +1,6 @@
 import User from '@models/User'
 import Bcrypt from 'bcryptjs'
-import PasswordReset from '../../models/PasswordReset';
+import PasswordReset from '../../models/PasswordReset'
 
 const login = async (req, res) => {
   try {
@@ -57,12 +57,10 @@ const reset = async (req, res) => {
   try {
     const { user } = req
     await User.findOneAndUpdate(
-        { email: user.email},
-        {password: Bcrypt.hashSync(req.body.password)}
-        )
-    await PasswordReset.findOneAndDelete(
-        {email: user.email }
+      { email: user.email },
+      { password: Bcrypt.hashSync(req.body.password) }
     )
+    await PasswordReset.findOneAndDelete({ email: user.email })
     return res.json({
       message: 'Password reset successfully',
     })

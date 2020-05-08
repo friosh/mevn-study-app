@@ -11,5 +11,4 @@ authRouter.post('/register', registerValidator, authController.register)
 authRouter.post('/restore', restoreValidator, authController.restore)
 authRouter.post('/reset', resetPasswordValidator, authController.reset)
 
-
 export default authRouter
