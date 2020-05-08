@@ -13,7 +13,7 @@ const UserSchema = new mongoose.Schema({
   createdAt: Date,
   updateAt: Date,
   password: String,
-  emailConfirmedAr: Date,
+  emailConfirmedAt: Date,
   emailConfirmedCode: String,
 })
 

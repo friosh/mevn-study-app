@@ -71,7 +71,27 @@ const reset = async (req, res) => {
   }
 }
 
+const confirmEmail = async (req, res) => {
+  try {
+    const user = await User.findOneAndUpdate(
+      { email: req.user.email },
+      {
+        emailConfirmCode: null,
+        emailConfirmedAt: new Date(),
+      },
+      { new: true }
+    )
+    const token = user.generateToken()
+    return res.json({
+      user,
+      token,
+      message: 'Email has confirmed',
+    })
+  } catch (e) {}
+}
+
 export default {
+  confirmEmail,
   login,
   register,
   reset,
