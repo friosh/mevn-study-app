@@ -29,7 +29,7 @@ UserSchema.post('save', async function () {
     .subject('Please confirm your email')
     .data({
       name: this.name,
-      url: `${config.url}/auth/emails/confirm/${this.emailConfirmedCode}`,
+      url: `${config.url}/auth/confirm/${this.emailConfirmedCode}`,
     })
     .send()
 })
