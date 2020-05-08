@@ -7,14 +7,14 @@ const ConfirmEmailSchema = Yup.object().shape({
 
 export default async (req, res, next) => {
   try {
-    const token = req.body
+    const { token } = req.body
     ConfirmEmailSchema.validate(req.body)
-    const user = User.findOne({ emailConfirmCode: token })
+    const user = await User.findOne({ emailConfirmCode: token })
     if (!user) {
       throw new Yup.ValidationError('This token is invalid', req.body, 'token')
     }
     req.user = user
-    return next()
+    next()
   } catch (error) {
     return res.status(422).json({
       [error.path]: error.message,
