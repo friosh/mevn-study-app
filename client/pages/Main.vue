@@ -11,11 +11,12 @@
           <router-link class="text-gray-700" to="/auth/login">Login</router-link>
           <router-link class="text-gray-700 rounded-full border-gray-700 border-2 border-solid hover:border-orange-700 hover:text-orange-700 px-3 py-2 ml-3" to="/auth/register">Register</router-link>
         </div>
-        <div class="w-32" v-else>
-          <btn
-            text="Logout"
+        <div v-else>
+          <router-link class="text-gray-700 w-32" to="/auth/reset/">Reset Password</router-link>
+          <button
+            class="w-32 ml-3"
             @click="logout"
-          />
+          >Logout</button>
         </div>
       </div>
       <router-view />

@@ -1,29 +1,29 @@
 <template>
   <div class="container my-16 w-full mx-auto">
     <validation-observer
-      ref="reg"
+      ref="form"
       v-slot="{ handleSubmit }"
     >
       <form
         ref="form"
-        @submit.prevent="handleSubmit(() => onSubmit(restorePassword, user, '/'))"
+        @submit.prevent="handleSubmit(() => onSubmit(reset, password, '/'))"
       >
         <div class="max-w-xs mx-auto">
-          <h2 class="text-center text-lg text-orange-700">Restore password</h2>
+          <h2 class="text-center text-lg text-orange-700">Reset password</h2>
           <div class="w-full p-6 bg-white shadow mt-5 rounded-sm">
-            <validation-provider name="email" rules="required|email" v-slot="v">
+            <validation-provider name="password" rules="required|min:6" v-slot="v">
               <AppInput
-                placeholder="Enter your email"
-                type="text"
-                name="email"
-                v-model="user.email"
-                :value="user.email"
+                placeholder="Enter new password"
+                type="password"
+                name="password"
+                v-model="password"
+                :value="password"
                 :class="v.classes"
                 :errors="v.errors"
               />
             </validation-provider>
             <btn
-              text="Send password"
+              text="Reset"
               :pending="pending"
               :disabled="pending"
             />
@@ -38,19 +38,19 @@
   import formMixin from '@client/mixins/form'
   import { mapActions, mapGetters } from 'vuex';
 
-
   export default {
-    name: 'ForgotPassword',
+    name: 'ResetPassword',
     mixins: [formMixin],
     data: () => ({
-      user: {
-        email: null
-      },
+      password: null
     }),
     methods: {
       ...mapActions([
-        'restorePassword'
+        'resetPassword'
       ]),
+      reset(password) {
+        return this.resetPassword({password, token: this.$route.params.token})
+      }
     },
   };
 </script>

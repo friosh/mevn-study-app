@@ -52,6 +52,13 @@ export default new Vuex.Store({
         return utils.getError(e)
       }
     },
+    async resetPassword(context, data) {
+      try {
+        return await api.post('auth/reset', data)
+      } catch (e) {
+        return utils.getError(e)
+      }
+    }
   },
   mutations: {
     setPeople(state, people) {
