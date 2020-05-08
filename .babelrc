@@ -11,6 +11,7 @@
         "@components": "./client/components",
         "@config": "./server/config",
         "@controllers": "./server/controllers",
+        "@middleware": "./server/middleware",
         "@models": "./server/models",
         "@pages": "./client/pages",
         "@routes": "./server/routes",

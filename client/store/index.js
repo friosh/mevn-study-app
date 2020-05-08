@@ -69,6 +69,9 @@ export default new Vuex.Store({
     async auth({ commit }, user) {
       return utils.setAuth(user, commit)
     },
+    async resendConfirmEmail({}) {
+      return await api.post('auth/resend-confirm-email')
+    },
   },
   mutations: {
     setPeople(state, people) {

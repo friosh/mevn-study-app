@@ -1,6 +1,18 @@
 <template>
   <div class="main">
-    <div class="h-4 w-full bg-orange-500"></div>
+    <div
+      v-if="showConfirmEmailPanel"
+      class="w-full h-12 text-orange-600 bg-orange-100 flex items-center justify-center"
+    >
+      Please, confirm your email. Didn't receive an email?
+      <span
+        class="border-orange-600 border-b ml-2 cursor-pointer
+        hover:border-orange-800
+        hover:text-orange-800"
+        @click="resendEmail"
+      >Click here to resend email</span>
+    </div>
+    <div class="h-2 w-full bg-orange-500"></div>
     <loader v-if="pending" />
     <div v-else class="main-container">
       <div class="w-full h-12 flex items-center justify-between px-3">
@@ -38,16 +50,26 @@
     computed: {
       ...mapGetters([
           'user'
-      ])
+      ]),
+      showConfirmEmailPanel() {
+        return this.user && !this.user.emailConfirmedAt
+      }
     },
     methods: {
       ...mapActions({
         initialize: 'initialize',
-        logoutStore: 'logout'
+        logoutStore: 'logout',
+        resendConfirmEmail: 'resendConfirmEmail'
       }),
       logout() {
         this.logoutStore()
         this.$router.push('/')
+      },
+      async resendEmail() {
+        const res = await this.resendConfirmEmail()
+        if (res) {
+          this.$router.push('/')
+        }
       }
     },
     async mounted() {

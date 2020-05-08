@@ -23,15 +23,8 @@ UserSchema.pre('save', function () {
   this.createdAt = new Date()
 })
 
-UserSchema.post('save', async function () {
-  return await new Mail('confirm-account')
-    .to(this.email, this.name)
-    .subject('Please confirm your email')
-    .data({
-      name: this.name,
-      url: `${config.url}/auth/confirm/${this.emailConfirmCode}`,
-    })
-    .send()
+UserSchema.post('save', function () {
+  return this.sendEmailConfirmation()
 })
 
 UserSchema.methods.comparePassword = function (plainPass) {
@@ -56,6 +49,17 @@ UserSchema.methods.restorePassword = async function () {
     .data({
       url: `${config.url}/auth/reset/${token}`,
       name: this.name,
+    })
+    .send()
+}
+
+UserSchema.methods.sendEmailConfirmation = function () {
+  return new Mail('confirm-account')
+    .to(this.email, this.name)
+    .subject('Please confirm your email')
+    .data({
+      name: this.name,
+      url: `${config.url}/auth/confirm/${this.emailConfirmCode}`,
     })
     .send()
 }

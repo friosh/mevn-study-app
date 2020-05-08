@@ -99,10 +99,28 @@ const confirmEmail = async (req, res) => {
   }
 }
 
+const resendConfirmEmail = async (req, res) => {
+  try {
+    if (!req.user.emailConfirmedAt) {
+      await req.user.sendEmailConfirmation()
+    }
+
+    return res.json({
+      message: 'Email confirm sent',
+    })
+  } catch (error) {
+    console.log(error)
+    return res.status(422).json({
+      common: error.message,
+    })
+  }
+}
+
 export default {
   confirmEmail,
   login,
   register,
+  resendConfirmEmail,
   reset,
   restore,
 }
