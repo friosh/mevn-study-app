@@ -66,9 +66,9 @@ export default new Vuex.Store({
         return utils.getError(e)
       }
     },
-    async auth({commit}, user) {
+    async auth({ commit }, user) {
       return utils.setAuth(user, commit)
-    }
+    },
   },
   mutations: {
     setPeople(state, people) {

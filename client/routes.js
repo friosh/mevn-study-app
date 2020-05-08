@@ -6,7 +6,7 @@ import Registration from '@pages/Register.vue'
 import Home from '@pages/Home.vue'
 import ForgotPassword from '@pages/ForgotPassword.vue'
 import ResetPassword from '@pages/ResetPassword.vue'
-import ConfirmEmail from '@pages/ConfirmEmail.vue';
+import ConfirmEmail from '@pages/ConfirmEmail.vue'
 
 export default new Router({
   mode: 'history',
@@ -33,7 +33,7 @@ export default new Router({
     },
     {
       path: '/auth/confirm/:token',
-      component: ConfirmEmail
-    }
+      component: ConfirmEmail,
+    },
   ],
 })
