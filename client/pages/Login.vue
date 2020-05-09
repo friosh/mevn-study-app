@@ -1,11 +1,10 @@
 <template>
   <div class="container my-16 w-full mx-auto">
     <validation-observer
-      ref="reg"
+      ref="form"
       v-slot="{ handleSubmit }"
     >
       <form
-        ref="form"
         @submit.prevent="handleSubmit(() => onSubmit(login, user, '/'))"
       >
         <div class="max-w-xs mx-auto">

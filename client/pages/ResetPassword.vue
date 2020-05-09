@@ -5,7 +5,6 @@
       v-slot="{ handleSubmit }"
     >
       <form
-        ref="form"
         @submit.prevent="handleSubmit(() => onSubmit(reset, password, '/'))"
       >
         <div class="max-w-xs mx-auto">

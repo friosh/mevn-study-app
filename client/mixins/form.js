@@ -15,7 +15,7 @@ extend('required', {
 extend('email', email)
 extend('confirmed', {
   ...confirmed,
-  message: 'Repeated password doesnt match with new password'
+  message: 'Repeated password doesnt match with new password',
 })
 extend('min', {
   ...min,
@@ -45,7 +45,6 @@ export default {
     },
     async onSubmit(method, formData, to = null) {
       this.togglePending()
-      console.log(res);
       const res = await method(formData)
       if (res.error) {
         const { field, msg } = res.data[0]

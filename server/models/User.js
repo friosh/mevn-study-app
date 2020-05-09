@@ -13,25 +13,18 @@ const UserSchema = new mongoose.Schema({
   createdAt: Date,
   updateAt: Date,
   password: String,
-  emailConfirmedAr: Date,
-  emailConfirmedCode: String,
+  emailConfirmedAt: Date,
+  emailConfirmCode: String,
 })
 
 UserSchema.pre('save', function () {
   ;(this.password = Bcrypt.hashSync(this.password)),
-    (this.emailConfirmedCode = randomstring.generate(72))
+    (this.emailConfirmCode = randomstring.generate(72))
   this.createdAt = new Date()
 })
 
-UserSchema.post('save', async function () {
-  return await new Mail('confirm-account')
-    .to(this.email, this.name)
-    .subject('Please confirm your email')
-    .data({
-      name: this.name,
-      url: `${config.url}/auth/emails/confirm/${this.emailConfirmedCode}`,
-    })
-    .send()
+UserSchema.post('save', function () {
+  return this.sendEmailConfirmation()
 })
 
 UserSchema.methods.comparePassword = function (plainPass) {
@@ -54,8 +47,19 @@ UserSchema.methods.restorePassword = async function () {
     .to(this.email, this.name)
     .subject('Password reset')
     .data({
-      url: `${config.url}/auth//reset/${token}`,
+      url: `${config.url}/auth/reset/${token}`,
       name: this.name,
+    })
+    .send()
+}
+
+UserSchema.methods.sendEmailConfirmation = function () {
+  return new Mail('confirm-account')
+    .to(this.email, this.name)
+    .subject('Please confirm your email')
+    .data({
+      name: this.name,
+      url: `${config.url}/auth/confirm/${this.emailConfirmCode}`,
     })
     .send()
 }

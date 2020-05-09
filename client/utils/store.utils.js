@@ -4,7 +4,7 @@ const setAuth = (auth, commit) => {
   return auth
 }
 
-const getError = (error) => {
+const getError = (error, dispatch) => {
   const output = {
     error: true,
     data: [],
@@ -15,6 +15,7 @@ const getError = (error) => {
       msg: error.response.data[field],
     })
   })
+  dispatch('flash', { message: output.data[0].msg })
   return output
 }
 export default {

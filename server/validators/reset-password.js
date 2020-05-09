@@ -12,14 +12,24 @@ export default async (req, res, next) => {
     await ResetPasswordSchema.validate(req.body)
 
     const existingReset = await PasswordReset.findOne({ token })
+    console.log({ token })
     if (!existingReset) {
-      throw new Yup.ValidationError(
-          'Invalid reset token',
-          req.body,
-          'password'
-      )
+      throw new Yup.ValidationError('Invalid reset token', req.body, 'password')
     }
 
+    const timeInHours = Math.ceil(
+      (new Date().getTime() - new Date(existingReset.createdAt).getTime()) /
+        (60000 * 24)
+    )
+    console.log(timeInHours)
+    if (timeInHours > 12) {
+      await PasswordReset.findOneAndDelete({ token })
+      throw new Yup.ValidationError(
+        'Reset password token has expired',
+        req.body,
+        'password'
+      )
+    }
     const user = await User.findOne({ email: existingReset.email })
 
     req.user = user
