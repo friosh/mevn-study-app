@@ -1,5 +1,5 @@
 # mevn-study-app
-Fullstack application was made as a part of course: 
+Fullstack application was made as a part of the course: 
 https://www.udemy.com/course/draft/2454194/learn/
 
 
