@@ -1,5 +1,6 @@
 <template>
   <div class="main">
+    <flash />
     <div
       v-if="showConfirmEmailPanel"
       class="w-full h-12 text-orange-600 bg-orange-100 flex items-center justify-center"
@@ -38,12 +39,13 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex'
-  import Btn from '../components/ui/btn/Btn.vue';
-  import Loader from '../components/ui/loader/Loader.vue';
+  import Btn from '@components/ui/btn/Btn.vue';
+  import Loader from '@components/ui/loader/Loader.vue';
+  import Flash from '@components/ui/message/Flash.vue'
 
   export default {
     name: 'Main',
-    components: {Loader, Btn},
+    components: {Loader, Btn, Flash},
     data: () => ({
       pending: true
     }),
@@ -63,6 +65,7 @@
       }),
       logout() {
         this.logoutStore()
+        this.flash('Bye, bye!')
         this.$router.push('/')
       },
       async resendEmail() {

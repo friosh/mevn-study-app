@@ -2,7 +2,16 @@ export default {
   state: {
     messages: [],
   },
-  getters: {},
+  getters: {
+    messages: (state) => state.messages,
+  },
   actions: {},
-  mutations: {},
+  mutations: {
+    setFlash(state, message) {
+      state.messages.push(message)
+    },
+    clearFlash(state, id) {
+      state.messages = state.messages.filter((message) => message.id !== id)
+    },
+  },
 }
