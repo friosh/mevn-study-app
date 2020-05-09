@@ -1,3 +1,5 @@
+import { v4 as uuid } from 'uuid'
+
 export default {
   state: {
     messages: [],
@@ -5,7 +7,16 @@ export default {
   getters: {
     messages: (state) => state.messages,
   },
-  actions: {},
+  actions: {
+    flash({ commit }, { message, type }) {
+      type = type ? type : 'success'
+      const id = uuid()
+      commit('setFlash', { id, type, message })
+      setTimeout(() => {
+        commit('clearFlash', id)
+      }, 3000)
+    },
+  },
   mutations: {
     setFlash(state, message) {
       state.messages.push(message)

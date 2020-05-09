@@ -5,13 +5,13 @@
       v-if="showConfirmEmailPanel"
       class="w-full h-12 text-orange-600 bg-orange-100 flex items-center justify-center"
     >
-      Please, confirm your email. Didn't receive an email?
+      Please, confirm your email.
       <span
         class="border-orange-600 border-b ml-2 cursor-pointer
         hover:border-orange-800
         hover:text-orange-800"
         @click="resendEmail"
-      >Click here to resend email</span>
+      >Click here to resend</span>
     </div>
     <div class="h-2 w-full bg-orange-500"></div>
     <loader v-if="pending" />
@@ -25,7 +25,6 @@
           <router-link class="text-gray-700 rounded-full border-gray-700 border-2 border-solid hover:border-orange-700 hover:text-orange-700 px-3 py-2 ml-3" to="/auth/register">Register</router-link>
         </div>
         <div v-else>
-          <router-link class="text-gray-700 w-32" to="/auth/reset/">Reset Password</router-link>
           <button
             class="w-32 ml-3"
             @click="logout"
@@ -65,7 +64,6 @@
       }),
       logout() {
         this.logoutStore()
-        this.flash('Bye, bye!')
         this.$router.push('/')
       },
       async resendEmail() {

@@ -1,3 +1,6 @@
+import api from '@client/utils/axios'
+import utils from '@client/utils/store.utils'
+
 const state = {
   error: null,
   token: null,
@@ -19,12 +22,13 @@ const actions = {
       console.log(e)
     }
   },
-  async postRegister({ commit }, data) {
+  async postRegister({ commit, dispatch }, data) {
     try {
       const auth = await api.post('auth/register', data)
+      dispatch('flash', { message: 'Thanks for registration!' })
       return utils.setAuth(auth, commit)
     } catch (error) {
-      return utils.getError(error)
+      return utils.getError(error, dispatch)
     }
   },
   async login({ commit }, data) {
@@ -32,46 +36,54 @@ const actions = {
       const auth = await api.post('auth/login', data)
       return utils.setAuth(auth, commit)
     } catch (error) {
-      return utils.getError(error)
+      return utils.getError(error, dispatch)
     }
   },
-  async logout({ commit }) {
+  async logout({ commit, dispatch }) {
     commit('setAuth', null)
+    dispatch('flash', { message: 'Bye, Bye!' })
     localStorage.removeItem('auth')
   },
-  async restorePassword(context, data) {
+  async restorePassword({ dispatch }, data) {
     try {
-      return await api.post('auth/restore', data)
+      const output = await api.post('auth/restore', data)
+      dispatch('flash', { message: 'Check your email for restoring password!' })
+      return output
     } catch (e) {
-      return utils.getError(e)
+      return utils.getError(e, dispatch)
     }
   },
-  async resetPassword(context, data) {
+  async resetPassword({ dispatch }, data) {
     try {
-      return await api.post('auth/reset', data)
+      const output = await api.post('auth/reset', data)
+      dispatch('flash', { message: 'Password changed successfully!' })
+      return output
     } catch (e) {
-      return utils.getError(e)
+      return utils.getError(e, dispatch)
     }
   },
-  async confirmEmail(context, token) {
+  async confirmEmail({ dispatch }, token) {
     try {
-      return await api.post('auth/confirm-email', { token })
+      const confirmed = await api.post('auth/confirm-email', { token })
+      dispatch('flash', { message: 'Thanks for confirming email!' })
+      return confirmed
     } catch (e) {
-      return utils.getError(e)
+      return utils.getError(e, dispatch)
     }
   },
   async auth({ commit }, user) {
     return utils.setAuth(user, commit)
   },
-  async resendConfirmEmail({}) {
-    return await api.post('auth/resend-confirm-email')
+  async resendConfirmEmail({ dispatch }) {
+    const resent = await api.post('auth/resend-confirm-email')
+    dispatch('flash', {
+      message: 'We sent you new email for restoring password',
+    })
+    return resent
   },
 }
 
 const mutations = {
-  setPeople(state, people) {
-    state.people = people
-  },
   setAuth(state, auth) {
     if (auth) {
       state.user = auth.user
