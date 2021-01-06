@@ -15,7 +15,7 @@
     "@babel/node": "^7.8.7",
     "@babel/preset-env": "^7.9.6",
     "@fullstackjs/mail": "^1.0.7",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "babel-loader": "^8.1.0",
     "babel-plugin-module-resolver": "^4.0.0",
     "babel-plugin-transform-regenerator": "^6.26.0",
